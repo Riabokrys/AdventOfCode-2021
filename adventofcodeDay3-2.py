@@ -1,51 +1,39 @@
-import statistics
-
-class Item:
-    def __init__(self, x : str = None):
-        self.bits = []
-        if x != None:
-            self.add(x)
-
-    def add(self, x: str):
-        self.bits.append(int(x))
+def calculate(numbersArg, leaveOnes):
+    numbers = numbersArg
+    index = 0
+    while len(numbers) > 1:
+        zeros = 0
+        ones = 0
+        for number in numbers:
+            zeros += 1 - number[index]
+            ones += number[index]
+        leave = int(leaveOnes(zeros, ones))
+        numbers = [x for x in numbers if x[index] == leave]
+        index += 1
+    return numbers
 
 with open('adventofcode_day3_task1.txt') as f:
     lines = f.readlines()
 
-items = []
 vectors = []
 for line in lines:
-    item = Item()
-    for i, symbol in enumerate(line):
+    item = []
+    for symbol in line:
         if symbol == '\n':
-            items.append(item)
-        elif i >= len(vectors):
-            item.add(symbol)
-            vector = Item(symbol)
-            vectors.append(vector)
+            vectors.append(item)
         else:
-            item.add(symbol)
-            vectors[i].add(symbol)
+            item.append(int(symbol))
 
-oxigenItems = items
-co2Items = items
-
-for i, vector in enumerate(vectors):
-    mode = statistics.mode(vector.bits)
-    if len(oxigenItems) == 1 and len(co2Items) == 1:
-        break
-    if len(oxigenItems) > 1:
-        oxigenItems = list(filter(lambda x: x.bits[i] == mode, oxigenItems))
-    if len(co2Items) > 1:
-        co2Items = list(filter(lambda x: x.bits[i] != mode, co2Items))
+oxygen = calculate(vectors, lambda zeros, ones: zeros <= ones)[0]
+co2 = calculate(vectors, lambda zeros, ones: zeros > ones)[0]
         
 oxigenStr = ""
 co2Str = ""
 
-for x in oxigenItems[0].bits:
+for x in oxygen:
     oxigenStr += str(x)
 
-for x in co2Items[0].bits:
+for x in co2:
     co2Str += str(x)
 
 oxigen = int(oxigenStr, 2)
