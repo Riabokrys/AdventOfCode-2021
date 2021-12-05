@@ -9,7 +9,7 @@ class Item:
     def add(self, x: str):
         self.bits.append(int(x))
 
-with open('F:\\SERHII\\Tobii\\adventofcode\\2021\\adventofcode_day3_task1.txt') as f:
+with open('adventofcode_day3_task1.txt') as f:
     lines = f.readlines()
 
 items = []
