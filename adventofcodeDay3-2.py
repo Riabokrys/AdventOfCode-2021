@@ -27,16 +27,16 @@ for line in lines:
 oxygen = calculate(vectors, lambda zeros, ones: zeros <= ones)[0]
 co2 = calculate(vectors, lambda zeros, ones: zeros > ones)[0]
         
-oxigenStr = ""
+oxygenStr = ""
 co2Str = ""
 
 for x in oxygen:
-    oxigenStr += str(x)
+    oxygenStr += str(x)
 
 for x in co2:
     co2Str += str(x)
 
-oxigen = int(oxigenStr, 2)
+oxygen = int(oxygenStr, 2)
 co2 = int(co2Str, 2)
 
-print(f"Oxigen: {oxigen}, CO2: {co2}, x: {oxigen * co2}")
+print(f"Oxygen: {oxygen}, CO2: {co2}, x: {oxygen * co2}")
