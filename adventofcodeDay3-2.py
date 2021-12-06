@@ -1,3 +1,5 @@
+import operator
+
 def calculate(numbersArg, leaveOnes):
     numbers = numbersArg
     index = 0
@@ -24,8 +26,8 @@ for line in lines:
         else:
             item.append(int(symbol))
 
-oxygen = calculate(vectors, lambda zeros, ones: zeros <= ones)[0]
-co2 = calculate(vectors, lambda zeros, ones: zeros > ones)[0]
+oxygen, = calculate(vectors, operator.le)
+co2, = calculate(vectors, operator.gt)
         
 oxygenStr = ""
 co2Str = ""
